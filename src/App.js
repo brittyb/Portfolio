@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { createRoot } from 'react-dom/client'; // Import createRoot from react-dom
 import './App.css';
 
@@ -10,12 +10,29 @@ const SectionTitle = (props) => {
   // State to track whether the scroll position has reached the target point
   const [scrolledToTarget, setScrolledToTarget] = useState(false);
 
+  const sectionRef = useRef(null);
+
+  // the position of the div on the screen
+  const [sectionPosition, setSectionPosition] = useState(0);
+
+
+  // get the scroll Y position of div
+  const getElementTopPosition = (element) => {
+    let offsetTop = 0;
+    while (element) {
+      offsetTop += element.offsetTop;
+      element = element.offsetParent;
+    }
+    return offsetTop - window.scrollY; // Adjust for current scroll position
+  };
+
   // Function to handle scroll events
   const handleScroll = () => {
+    console.log(sectionPosition);
     const scrollY = window.scrollY || document.documentElement.scrollTop;
-    // Change the target scroll position as needed
-    console.log(scrollY);
-    if (scrollY >= props.position) {
+    // Change the target scroll position as needed (if it is scrolled to)
+
+    if (scrollY >= sectionPosition) {
       setScrolledToTarget(true);
       
     } else {
@@ -24,17 +41,27 @@ const SectionTitle = (props) => {
     }
   };
 
+
+  // Effect to update the section position after the component mounts
+  useEffect(() => {
+    if (sectionRef.current) {
+      const elementTop = getElementTopPosition(sectionRef.current);
+      setSectionPosition(elementTop);
+    }
+  }, []); 
+
   // Effect to add scroll event listener when the component mounts
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
-    // Clean up the event listener when the component unmounts
+
+    // Cleanup the event listener on component unmount
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, []); // Empty dependency array means this effect runs only once on mount
+  }, [sectionPosition]); // Adding sectionPosition to ensure handleScroll uses the updated position
 
   return (
-    <div id="about" className={`my-div ${scrolledToTarget ? 'target-color' : 'default-color'}`}>
+    <div ref={sectionRef} id="about" className={`my-div ${scrolledToTarget ? 'target-color' : 'default-color'}`}>
       <h3 className="about">{props.name}</h3>
     </div>
   );
@@ -56,6 +83,19 @@ export default function App() {
   return (
     <main>
       <SectionTitle name="About" position="600"/>
+      <div id="projects" className="projects">
+      <p>about</p>
+      </div>
+      <SectionTitle name="Projects" position="700"/>
+
+      <div id="projects" className="projects">
+      <p>projects</p>
+      </div>
+      <SectionTitle name="Contact" position="800"/>
+      <div id="contact" className="contact">
+      <p>contact</p>
+      </div>
+
     </main>
   )
 }
