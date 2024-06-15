@@ -5,8 +5,58 @@ import './App.css';
 
 
 
+/*
+const hello = () => {
+  const array = ['Zeller Cellar', 'Graphics', 'Scrapbook'];
+  const combined = [...array, 'Creative Comms'];
+  const projects = combined.map((item) => <p>{item}</p>)
+  return projects;
+}
+  
 
-const SectionTitle = (props) => {
+class Test extends React.Component {
+  render() {
+    return <h2>Hi, I am a test function!</h2>;
+  }
+}
+function Test2(props) {
+  return <p>Test function 2!!! {props.color}</p>
+}
+*/
+
+
+
+/*
+root.render(hello());
+root.render(<Test2 color="purple"/>);
+*/
+
+
+
+/*
+class Project {
+  constructor(name, description, image) {
+    this.name = name;
+    this.descripton = description;
+    this.image = image;
+  }
+
+  show() {
+    return "test function";
+  }
+}
+
+const project1 = new Project("Project 1", "Description 1", "image1.jpg");
+*/
+
+
+
+/*
+Smooth scroll to different parts of page
+*/
+
+// State to track whether the scroll position has reached the target point
+const App = () => {
   // State to track whether the scroll position has reached the target point
   const [scrolledToTarget, setScrolledToTarget] = useState(false);
 
@@ -15,7 +65,7 @@ const SectionTitle = (props) => {
     const scrollY = window.scrollY || document.documentElement.scrollTop;
     // Change the target scroll position as needed
     console.log(scrollY);
-    if (scrollY >= props.position) {
+    if (scrollY >= 600) {
       setScrolledToTarget(true);
       
     } else {
@@ -35,12 +85,12 @@ const SectionTitle = (props) => {
 
   return (
     <div id="about" className={`my-div ${scrolledToTarget ? 'target-color' : 'default-color'}`}>
-      <h3 className="about">{props.name}</h3>
+      <h3 className="about">About</h3>
     </div>
   );
 };
 
-createRoot(document.getElementById('root')).render(<SectionTitle />);
+createRoot(document.getElementById('root')).render(<App />);
 
 document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
   anchor.addEventListener("click", function (e) {
@@ -51,11 +101,3 @@ document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
     });
   });
 });
-
-export default function App() {
-  return (
-    <main>
-      <SectionTitle name="About" position="600"/>
-    </main>
-  )
-}
