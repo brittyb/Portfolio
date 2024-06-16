@@ -68,7 +68,7 @@ main {
   
   
   
-  .sectionTitleDiv{
+  .section-title-div{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -79,13 +79,17 @@ main {
     border-radius: 30px;;
   }
   
-  .target-color {
+  .section-color {
     background-color: #323132;
   }
   
-  .default-color {
+  .background-color {
     background-color: rgb(30, 29, 30);
    
+  }
+
+  .skill-color{
+    background-color: #252525;
   }
   
 
@@ -101,7 +105,7 @@ main {
     color:#e6a1ff;
   }
 
-  h3.sectionTitle{
+  h3.section-title{
     font-size: 30px;
   }
 
@@ -109,7 +113,7 @@ main {
     margin-top: 350px;
 }
 
-.sectionDiv{
+.section-div{
     margin-top:300px;
     margin-bottom: 100px;
     scroll-margin-top: 150px;
@@ -119,22 +123,22 @@ main {
     scroll-margin-top: 200px; /* Adjust this value based on the height of your fixed navigation bar */
 }
 
-.skillDiv{
+.skill-div{
     border-radius: 50px;
     width:40%;
     width:300px;
     height:100px;
     max-height: 100px;
-    background-color: #252525;
     padding:5px;
     display: flex; /* Use flexbox for centering */
     align-items: center; /* Center items vertically */
     justify-content: center; /* Center items horizontally */
     vertical-align: top; /* Ensure they align to the top */
+    transition: background-color 1.8s ease; 
 
 }
 
-.skillImage{
+.skill-image{
     max-width: 80px;
     max-height: 80px;
     margin-right: 30px; /* Adjust margin to reduce total width */
@@ -142,7 +146,7 @@ main {
     
 }
 
-.skillName{
+.skill-name{
     text-align: center;
     display: inline-block;
     color:#a09ba2;
@@ -162,8 +166,8 @@ main {
     max-width: 100%; /* Ensure row can take full width */
 }
 
-.projectDiv{
-    width:400px;
+.project-div{
+    width:600px;
     height:500px;
     background-color: #c74fff;
     border-radius: 40px;
