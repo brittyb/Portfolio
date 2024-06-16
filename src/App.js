@@ -12,43 +12,26 @@ const SectionTitle = (props) => {
 
   const sectionRef = useRef(null);
 
-  // the position of the div on the screen
-  const [sectionPosition, setSectionPosition] = useState(0);
 
 
-  // get the scroll Y position of div
-  const getElementTopPosition = (element) => {
-    let offsetTop = 0;
-    while (element) {
-      offsetTop += element.offsetTop;
-      element = element.offsetParent;
-    }
-    return offsetTop - window.scrollY; // Adjust for current scroll position
-  };
-
-  // Function to handle scroll events
   const handleScroll = () => {
-    console.log(sectionPosition);
+    if (!sectionRef.current) return;
+  
     const scrollY = window.scrollY || document.documentElement.scrollTop;
-    // Change the target scroll position as needed (if it is scrolled to)
-
-    if (scrollY >= sectionPosition) {
+    const sectionRect = sectionRef.current.getBoundingClientRect();
+    
+    // Compare scrollY with sectionRect.top
+    if (scrollY >= sectionRect.top) {
       setScrolledToTarget(true);
-      
     } else {
       setScrolledToTarget(false);
-      
     }
   };
 
 
   // Effect to update the section position after the component mounts
-  useEffect(() => {
-    if (sectionRef.current) {
-      const elementTop = getElementTopPosition(sectionRef.current);
-      setSectionPosition(elementTop);
-    }
-  }, []); 
+
+
 
   // Effect to add scroll event listener when the component mounts
   useEffect(() => {
@@ -58,11 +41,11 @@ const SectionTitle = (props) => {
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, [sectionPosition]); // Adding sectionPosition to ensure handleScroll uses the updated position
+  }, []); // Adding sectionPosition to ensure handleScroll uses the updated position
 
   return (
-    <div ref={sectionRef} id="about" className={`my-div ${scrolledToTarget ? 'target-color' : 'default-color'}`}>
-      <h3 className="about">{props.name}</h3>
+    <div ref={sectionRef} id={`${props.name}Heading`}  className={`sectionTitleDiv ${scrolledToTarget ? 'target-color' : 'default-color'}`}>
+      <h3 className={`${props.name}Title`}>{props.name}</h3>
     </div>
   );
 };
@@ -82,17 +65,21 @@ document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
 export default function App() {
   return (
     <main>
-      <SectionTitle name="About" position="600"/>
-      <div id="projects" className="projects">
-      <p>about</p>
-      </div>
-      <SectionTitle name="Projects" position="700"/>
 
-      <div id="projects" className="projects">
+      <div id="skills" className="skills sectionDiv">
+      <SectionTitle name="Skills" position="700"/>
+      <p>skills</p>
+      </div>
+      
+      <div id="projects" className="projects sectionDiv">
+      <SectionTitle name="Projects" position="700"/>
       <p>projects</p>
       </div>
+      
+
+      
+      <div id="contact" className="contact sectionDiv">
       <SectionTitle name="Contact" position="800"/>
-      <div id="contact" className="contact">
       <p>contact</p>
       </div>
 
