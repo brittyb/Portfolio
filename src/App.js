@@ -62,15 +62,38 @@ document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
   });
 });
 
+function Skill(props){
+  return (
+    <>
+      <div className="skillDiv">
+        <img className="skillImage" src={props.link}></img>
+        <h3 className="skillName" >{props.name}</h3>
+      </div>
+    </>
+  );
+  
+}
+
 export default function App() {
   return (
     <main>
 
       <div id="skills" className="skills sectionDiv">
       <SectionTitle name="Skills" position="700"/>
-      <p>skills</p>
+      </div>
+      <div className="row">
+      <Skill name="React" link="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/2300px-React-icon.svg.png"></Skill>
+      <Skill name="Java" link="https://upload.wikimedia.org/wikipedia/en/3/30/Java_programming_language_logo.svg"></Skill>
+      <Skill name="Firebase" link="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Firebase_icon.svg/2048px-Firebase_icon.svg.png"></Skill>
+      </div>
+      <div className="row">
+      <Skill name="SQL" link="https://upload.wikimedia.org/wikipedia/commons/8/87/Sql_data_base_with_logo.png"></Skill>
+      <Skill name="C" link="https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/C_Programming_Language.svg/926px-C_Programming_Language.svg.png"></Skill>
+      <Skill name="Kotlin" link="https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/Kotlin_Icon.png/1200px-Kotlin_Icon.png"></Skill>
+
       </div>
       
+
       <div id="projects" className="projects sectionDiv">
       <SectionTitle name="Projects" position="700"/>
       <p>projects</p>
