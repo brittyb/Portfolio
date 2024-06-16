@@ -101,16 +101,22 @@ main {
     color:#e6a1ff;
   }
 
+  h3.sectionTitle{
+    font-size: 30px;
+  }
+
 #root{
-    padding-top: 350px;
+    margin-top: 350px;
 }
 
 .sectionDiv{
-    padding-top:300px;
+    margin-top:300px;
+    margin-bottom: 100px;
+    scroll-margin-top: 150px;
 }
 
 #about {
-    scroll-margin-top: 80px; /* Adjust this value based on the height of your fixed navigation bar */
+    scroll-margin-top: 200px; /* Adjust this value based on the height of your fixed navigation bar */
 }
 
 .skillDiv{
@@ -154,4 +160,14 @@ main {
     justify-content: center; /* Center the items */
     gap: 10px; /* Add some space between items if needed */
     max-width: 100%; /* Ensure row can take full width */
+}
+
+.projectDiv{
+    width:400px;
+    height:500px;
+    background-color: #c74fff;
+    border-radius: 40px;
+    padding:20px;
+    margin-right: 10px;
+    margin-left: 10px;
 }

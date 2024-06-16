@@ -45,7 +45,7 @@ const SectionTitle = (props) => {
 
   return (
     <div ref={sectionRef} id={`${props.name}Heading`}  className={`sectionTitleDiv ${scrolledToTarget ? 'target-color' : 'default-color'}`}>
-      <h3 className={`${props.name}Title`}>{props.name}</h3>
+      <h3 className={`${props.name}Title sectionTitle`}>{props.name}</h3>
     </div>
   );
 };
@@ -74,6 +74,18 @@ function Skill(props){
   
 }
 
+function Project(props){
+  return (
+    <>
+      <div className="projectDiv">
+        <h3 className="projectName">{props.name}</h3>
+        <p className="projectDescription">{props.description}</p>
+      </div>
+    </>
+  );
+  
+}
+
 export default function App() {
   return (
     <main>
@@ -92,18 +104,29 @@ export default function App() {
       <Skill name="Kotlin" link="https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/Kotlin_Icon.png/1200px-Kotlin_Icon.png"></Skill>
 
       </div>
+
+      <div className="row">
+        <Skill name="Git" link="https://git-scm.com/images/logos/downloads/Git-Icon-1788C.png"></Skill>
+        <Skill name="Python" link="https://i.pinimg.com/originals/82/a2/18/82a2188c985ce75402ae44fc43fe7e5e.png"></Skill>
+        <Skill name="MIPS" link="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDZxkoYfqOY6Jbr90GI-u9CxuBv9NxtQA3fjG5H8gNFjrJbdPTxWUeVmIUjBC92CTkZzA&usqp=CAU"></Skill>
+      </div>
       
 
       <div id="projects" className="projects sectionDiv">
       <SectionTitle name="Projects" position="700"/>
-      <p>projects</p>
+      
       </div>
       
+      <div className="row">
+        <Project name="Scrapbook" description="some stuff"></Project>
+        <Project name="Escape from the Zeller Cellar" description="aaaaa"></Project>
+        <Project name="Creative Commissions" description="aaaaaaaa"></Project>
+      </div>
 
       
       <div id="contact" className="contact sectionDiv">
       <SectionTitle name="Contact" position="800"/>
-      <p>contact</p>
+      
       </div>
 
     </main>
