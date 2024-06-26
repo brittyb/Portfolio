@@ -1,12 +1,15 @@
 main {
     color:#38322e;
-    font-family: arial;
+    font-family:Arial, Helvetica, sans-serif;
+    
   }
   
   body {
     background-color: rgb(30, 29, 30);
+    font-family:Arial, Helvetica, sans-serif;
     margin: 0px;
-    font-family:arial;
+    
+
   }
   
   
@@ -77,7 +80,8 @@ main {
     width: 500px;
     margin: auto;
     transition: opacity 1.4s ease; 
-    border-radius: 30px;;
+    border-radius: 30px;
+    text-transform: uppercase;
   }
   
   .foreground-opacity {
@@ -113,6 +117,9 @@ main {
     margin-top:300px;
     margin-bottom: 100px;
     scroll-margin-top: 150px;
+    width:fit-content;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 #about {
@@ -150,7 +157,7 @@ main {
 }
 
 .row{
-    max-width: fit-content;
+    
     margin-left: auto;
     margin-right: auto;
     margin-top:50px;
@@ -166,6 +173,7 @@ main {
     width:600px;
     height:500px;
     background-color: #2c2c2c;
+    background: linear-gradient(90deg, rgba(44,44,44,1) 0%, rgba(58,59,59,1) 100%);
     border-radius: 40px;
     padding:20px;
     margin-right: 10px;
@@ -214,4 +222,76 @@ main {
 
 p {
     color:#a09ba2;
+}
+
+.resume button {
+    color:#dc90ff;
+    font-size: 30px;
+    padding:20px;
+    margin:20px;
+    background-color: transparent;
+    border-color: #c74fff;
+    border-width: 2px;
+    border-style: solid;
+    transition: all 0.5s ease 0s;
+    
+    border-radius: 20px;
+}
+    
+
+.resume button:hover {
+    color:#a424ff;
+    border-color: #a424ff;
+    transform: scale(1.1);
+}
+
+div.resume {
+    margin-bottom: 400px;
+    
+}
+
+
+#ResumeHeading {
+    margin-bottom: 100px;
+}
+
+.resume h2 {
+    color:#c74fff;
+    font-size: 35px;;
+    display: block;
+    text-align: center;
+}
+
+.small-section-div {
+  margin-top: 200px;
+  display:block;
+  padding:10px;
+  width:fit-content;
+  margin-left: auto;
+  margin-right: auto;
+  transition: opacity 1.4s ease; 
+}
+
+.small-section-title {
+  color:rgb(107, 107, 107);
+  font-size: 35px;
+  background-color: #2f2f2f;
+  padding: 15px;
+  border-radius: 20px;
+}
+
+.course-div {
+  background-color: #444444;
+  text-align: center;
+  width:500px;
+  border-radius: 15px;
+  margin-left: auto;
+  margin-right: auto;
+  transition: opacity 1.4s ease; 
+}
+
+.course-name {
+  color:#a09ba2;
+  font-size: 25px;
+  padding:10px;
 }

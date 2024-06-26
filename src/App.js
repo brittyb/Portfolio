@@ -2,6 +2,17 @@ import React, { useEffect, useState, useRef } from 'react';
 import { createRoot } from 'react-dom/client'; // Import createRoot from react-dom
 import './App.css';
 
+function setActive(element){
+  // Remove active class from all links
+
+  var links = document.querySelectorAll('.topnav a');
+  links.forEach(function(link) {
+      link.classList.remove('active');
+  });
+
+  // Add active class to the clicked link
+  element.classList.add('active');
+}
 
 const useScrollToTarget = () => {
   const [scrolledToTarget, setScrolledToTarget] = useState(false);
@@ -34,31 +45,67 @@ const useScrollToTarget = () => {
   return [scrolledToTarget, sectionRef];
 };
 
+const useScrollToSection = () => {
+  
+  const [scrolledToTarget, setScrolledToTarget] = useState(false);
+  const sectionRef = useRef(null);
+  
 
+  const handleScroll = () => {
+    if (!sectionRef.current) return;
+
+    const sectionRect = sectionRef.current.getBoundingClientRect();
+    
+    console.log(sectionRef);
+    console.log(sectionRect.top);
+    if (sectionRect.top < 400 && sectionRect.top > 200) {
+      setScrolledToTarget(true);
+    } else {
+      setScrolledToTarget(false);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+
+    // Cleanup the event listener on component unmount
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  return [scrolledToTarget, sectionRef];
+};
 
 const SectionTitle = (props) => {
   // State to track whether the scroll position has reached the target point
   
   const [scrolledToTarget, sectionRef] = useScrollToTarget();
+  const [scrolledToSection, sectionRef2] = useScrollToSection();
+  useEffect(() => {
 
+    if (scrolledToSection && props.name) {
+      const name = props.name.toLowerCase();
+      const sectionLink = document.getElementById(`${name}Link`);
+      if (sectionLink) {
+        setActive(sectionLink);
+      } else {
+        console.log(`Element with ID ${name}Link not found`);
+      }
+    }
+  }, [scrolledToSection]);
+
+  
   return (
     <div ref={sectionRef} id={`${props.name}Heading`}  className={`section-title-div ${scrolledToTarget ? 'foreground-opacity' : 'background-opacity'}`}>
-      <h3 className={`${props.name}Title section-title`}>{props.name}</h3>
+      <h3 ref={sectionRef2} className={`${props.name}Title section-title`}>{props.name}</h3>
     </div>
   );
 };
 
-createRoot(document.getElementById('root')).render(<SectionTitle />);
 
-document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-  anchor.addEventListener("click", function (e) {
-    e.preventDefault();
 
-    document.querySelector(this.getAttribute("href")).scrollIntoView({
-      behavior: "smooth",
-    });
-  });
-});
+
 
 function Skill(props){
   const [scrolledToTarget, sectionRef] = useScrollToTarget();
@@ -71,6 +118,29 @@ function Skill(props){
     </>
   );
   
+}
+
+function SmallSectionTitle(props){
+  const [scrolledToTarget, sectionRef] = useScrollToTarget();
+  return (
+    <>
+      <div ref={sectionRef} className={`small-section-div ${scrolledToTarget ? 'foreground-opacity' : 'background-opacity'}`}>
+      <h3 className="small-section-title">{props.name}</h3>
+      </div>
+    </>
+  );
+  
+}
+
+function Course(props){
+  const [scrolledToTarget, sectionRef] = useScrollToTarget();
+  return (
+    <>
+      <div ref={sectionRef} className={`course-div ${scrolledToTarget ? 'foreground-opacity' : 'background-opacity'}`}>
+        <h3 className="course-name">{props.name}</h3>
+      </div>
+    </>
+  );
 }
 
 function Project(props){
@@ -95,10 +165,10 @@ function Project(props){
 export default function App() {
   return (
     <main>
-
+  
       <div id="skills" className="skills section-div">
       <SectionTitle name="Skills"/>
-      </div>
+      
       <div className="row">
       <Skill name="React" link="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/2300px-React-icon.svg.png"></Skill>
       <Skill name="Java" link="https://upload.wikimedia.org/wikipedia/en/3/30/Java_programming_language_logo.svg"></Skill>
@@ -115,10 +185,22 @@ export default function App() {
         <Skill name="Git" link="https://git-scm.com/images/logos/downloads/Git-Icon-1788C.png"></Skill>
         <Skill name="Python" link="https://i.pinimg.com/originals/82/a2/18/82a2188c985ce75402ae44fc43fe7e5e.png"></Skill>
         <Skill name="MIPS" link="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDZxkoYfqOY6Jbr90GI-u9CxuBv9NxtQA3fjG5H8gNFjrJbdPTxWUeVmIUjBC92CTkZzA&usqp=CAU"></Skill>
-      </div>
       
+        
+      </div>
+      <SmallSectionTitle name="Relevant Coursework"></SmallSectionTitle>
+      <Course name="Data Structures and Algorithms"></Course>
+      <Course name="Introduction to Software Engineering and Development"></Course>
+      <Course name="Mathematical Foundations of Computer Science"></Course>
+      <Course name="Advanced Programming Techniques"></Course>
+
+      <Course name="Introduction to Computer Engineering"></Course>
+      </div>
 
       <div id="projects" className="projects section-div">
+
+      
+
       <SectionTitle name="Projects" />
       
       </div>
@@ -146,8 +228,9 @@ export default function App() {
 
       <div id="resume" className="resume section-div">
         <SectionTitle name="Resume"/>
-        <a href="Resume April 2024.pdf" target="_blank">View Resume</a>
-        <a href="Resume April 2024.pdf" download="Resume Brittany Barnes">Download Resume</a>
+        <h2>View or Download my Resume here!</h2>
+        <a href="Resume April 2024.pdf" target="_blank"><button>View Resume</button></a>
+        <a href="Resume April 2024.pdf" download="Resume Brittany Barnes"><button>Download Resume</button></a>
 
       </div>
       
@@ -159,3 +242,13 @@ export default function App() {
     </main>
   )
 }
+
+document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+  anchor.addEventListener("click", function (e) {
+    e.preventDefault();
+
+    document.querySelector(this.getAttribute("href")).scrollIntoView({
+      behavior: "smooth",
+    });
+  });
+});
